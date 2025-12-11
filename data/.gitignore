@@ -1,0 +1,20 @@
+# Ignore all data files - tracked by DVC
+*.csv
+*.parquet
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+*.npy
+*.npz
+*.json
+*.jsonl
+
+# Ignore image directories
+images/
+
+# Keep .dvc files
+!*.dvc
+
+# Keep .gitignore
+!.gitignore

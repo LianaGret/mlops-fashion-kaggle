@@ -1,0 +1,20 @@
+type: visual
+num_customers: 100000
+num_articles: 100000
+
+embedding_dim: 128
+pretrained: true
+freeze_backbone: true
+unfreeze_layers: 2
+
+num_heads: 4
+dropout: 0.1
+use_customer_embedding: true
+
+learning_rate: 0.001
+backbone_lr: 0.00001
+weight_decay: 0.01
+
+scheduler_t0: 5
+scheduler_t_mult: 2
+min_lr: 0.0000001

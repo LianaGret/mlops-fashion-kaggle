@@ -1,0 +1,8 @@
+defaults:
+  - model: hybrid
+  - data: default
+  - training: default
+  - wandb: default
+  - _self_
+
+seed: 42

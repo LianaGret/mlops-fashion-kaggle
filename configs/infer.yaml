@@ -1,0 +1,8 @@
+defaults:
+  - model: hybrid
+  - data: inference
+  - _self_
+
+checkpoint: null
+output_path: predictions.csv
+batch_size: 64

@@ -1,0 +1,5 @@
+data_dir: data
+batch_size: 64
+num_workers: 2
+max_history_length: 50
+input_path: null

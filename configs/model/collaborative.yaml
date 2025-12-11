@@ -1,0 +1,11 @@
+type: collaborative
+num_customers: 1371980
+num_articles: 105542
+embedding_dim: 128
+dropout: 0.1
+
+learning_rate: 0.001
+weight_decay: 0.01
+scheduler_t0: 10
+scheduler_t_mult: 2
+min_lr: 0.000001

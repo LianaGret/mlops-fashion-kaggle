@@ -1,0 +1,10 @@
+data_dir: data
+batch_size: 16
+num_workers: 8
+max_history_length: 5
+negative_samples: 2
+image_size: 224
+val_split: 0.1
+test_split: 0.1
+
+sample_fraction: 0.05

@@ -1,0 +1,8 @@
+defaults:
+  - model: visual
+  - data: image_debug
+  - training: debug_visual
+  - wandb: default
+  - _self_
+
+seed: 42

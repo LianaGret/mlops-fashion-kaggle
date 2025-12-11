@@ -1,0 +1,13 @@
+max_epochs: 2
+accelerator: auto
+devices: 1
+precision: 32
+
+save_top_k: 1
+early_stopping_patience: 2
+
+gradient_clip_val: 1.0
+accumulate_grad_batches: 1
+log_every_n_steps: 10
+
+deterministic: true

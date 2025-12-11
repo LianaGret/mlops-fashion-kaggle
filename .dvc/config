@@ -1,0 +1,8 @@
+[core]
+    remote = s3-storage
+    autostage = true
+
+[remote "s3-storage"]
+    url = s3://guzbkm-mlops-project/fashion-dataset
+    endpointurl = https://storage.yandexcloud.net
+    region = ru-central1
