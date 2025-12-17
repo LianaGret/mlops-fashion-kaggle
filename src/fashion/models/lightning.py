@@ -14,6 +14,23 @@ from fashion.models.architectures import (
 )
 
 
+def _compute_precision_recall(
+        scores: torch.Tensor, labels: torch.Tensor
+) -> tuple[torch.Tensor, torch.Tensor]:
+    predictions = torch.sigmoid(scores) > 0.5
+
+    true_positives = ((predictions == 1) & (labels == 1)).float().sum()
+    predicted_positives = predictions.float().sum()
+    actual_positives = labels.sum()
+
+    precision = (
+        true_positives / predicted_positives if predicted_positives > 0 else torch.tensor(0.0)
+    )
+    recall = true_positives / actual_positives if actual_positives > 0 else torch.tensor(0.0)
+
+    return precision, recall
+
+
 class FashionRecommender(L.LightningModule):
     def __init__(self, config: DictConfig) -> None:
         super().__init__()
@@ -104,7 +121,7 @@ class FashionRecommender(L.LightningModule):
         predictions = torch.sigmoid(scores) > 0.5
         accuracy = (predictions == batch["label"]).float().mean()
 
-        precision, recall = self._compute_precision_recall(scores, batch["label"])
+        precision, recall = _compute_precision_recall(scores, batch["label"])
 
         self.log("val_loss", loss, on_step=False, on_epoch=True, prog_bar=True)
         self.log("val_accuracy", accuracy, on_step=False, on_epoch=True)
@@ -164,19 +181,3 @@ class FashionRecommender(L.LightningModule):
                 "frequency": 1,
             },
         }
-
-    def _compute_precision_recall(
-        self, scores: torch.Tensor, labels: torch.Tensor
-    ) -> tuple[torch.Tensor, torch.Tensor]:
-        predictions = torch.sigmoid(scores) > 0.5
-
-        true_positives = ((predictions == 1) & (labels == 1)).float().sum()
-        predicted_positives = predictions.float().sum()
-        actual_positives = labels.sum()
-
-        precision = (
-            true_positives / predicted_positives if predicted_positives > 0 else torch.tensor(0.0)
-        )
-        recall = true_positives / actual_positives if actual_positives > 0 else torch.tensor(0.0)
-
-        return precision, recall
