@@ -7,7 +7,7 @@
 - **Управление зависимостями:** [uv](https://docs.astral.sh/uv/)
 - **Логирование экспериментов:** [wandb](https://wandb.ai/guzbkm-higher-school-of-economics/mlops-project)
 
-## Setup
+## Работа с проектом
 
 ### 1. Установка uv
 
