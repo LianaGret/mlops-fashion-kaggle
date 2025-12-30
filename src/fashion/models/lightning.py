@@ -15,7 +15,7 @@ from fashion.models.architectures import (
 
 
 def _compute_precision_recall(
-        scores: torch.Tensor, labels: torch.Tensor
+    scores: torch.Tensor, labels: torch.Tensor
 ) -> tuple[torch.Tensor, torch.Tensor]:
     predictions = torch.sigmoid(scores) > 0.5
 

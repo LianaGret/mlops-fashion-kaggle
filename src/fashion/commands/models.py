@@ -79,7 +79,7 @@ def _get_version_info() -> dict[str, str]:
 
 
 def _run_visual_inference(
-        model,
+    model,
     device,
     output_path: Path,
     batch_size: int,
@@ -121,9 +121,9 @@ def _run_visual_inference(
     customer_histories = {}
     for cid, group in transactions.groupby("customer_id"):
         if cid in sampled_customers:
-            history = [
-                article_to_idx[aid] for aid in group["article_id"] if aid in article_to_idx
-            ][-5:]
+            history = [article_to_idx[aid] for aid in group["article_id"] if aid in article_to_idx][
+                -5:
+            ]
             if history:
                 customer_histories[cid] = history
 
