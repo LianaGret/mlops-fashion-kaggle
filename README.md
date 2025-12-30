@@ -21,21 +21,36 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 uv sync
 ```
 
-### 3. Настройка секретов
+### 3. Настройка Weights & Biases
 
-Создайте файл `.secret.env` в корне проекта:
+Создайте файл `.secret.env` в корне проекта и добавьте ваш API ключ:
 
 ```bash
 cp .env .secret.env
+# Отредактируйте .secret.env и замените WANDB_API_KEY на ваш ключ
 ```
-
-Заполните реальными значениями для S3 и wandb.
 
 ### 4. Загрузка данных
 
+Скачайте датасет:
+
 ```bash
-uv run dvc pull
+uv run fashionctl datasets download --all
 ```
+
+Эта команда загрузит:
+- `articles.csv` - метаданные товаров (~35 MB)
+- `customers.csv` - данные о клиентах
+- `transactions_train.csv` - история покупок
+- `images/` - изображения товаров
+
+Проверьте загруженные данные:
+
+```bash
+uv run fashionctl datasets list
+```
+
+Вы увидите статус каждого датасета (local/remote).
 
 ### 5. Shell completions (опционально)
 
@@ -51,23 +66,31 @@ uv run fashionctl --show-completion fish | source
 uv run fashionctl --show-completion fish > ~/.config/fish/completions/fashionctl.fish
 ```
 
-## Train
+## 6. Обучение и инференс
 
-Запуск обучения:
+### 6.1 Обучение модели
+
+Запустите обучение модели с визуальными эмбеддингами:
 
 ```bash
 uv run fashionctl models train --config train_visual
 ```
 
-Запуск инференса:
+После завершения обучения чекпоинты сохраняются в директории `checkpoints/`:
+- `last.ckpt` - последний чекпоинт
+- `visual-epoch=XX-val_loss=Y.YY.ckpt` - лучшие чекпоинты по метрике
+
+Процесс обучения логируется в [Weights & Biases](https://wandb.ai/guzbkm-higher-school-of-economics/mlops-project).
+
+### 6.2 Инференс
+
+Запустите инференс с обученной моделью:
 
 ```bash
 uv run fashionctl models infer --checkpoint checkpoints/last.ckpt --sample-customers 10
 ```
 
-### Результат инференса
-
-Файл `predictions.csv` в формате:
+Результат сохраняется в файл `predictions.csv` в корне проекта:
 
 ```csv
 customer_id,prediction
